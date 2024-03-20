@@ -12,48 +12,52 @@
               <div class="card-header">
                 <h3 class="card-title">Add Detail Worker Form</h3>
               </div>
-              <!-- /.card-header -->
+              <!-- /.card-header --> 
               <!-- form start -->
-              <form class="form-horizontal">
+              @foreach($worker as $workers)
+              <form method="POST"  action="{{ route('details.update', $detail['id'])) }}" class="form-horizontal">
+                @csrf
+                @method('PUT')
                 <div class="card-body">
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label">ID</label>
                     <div class="col-sm-10">
-                      <input name="id" class="form-control" disabled>
+                      <input name="id" value="{{ $workers['id'] }}" class="form-control" disabled>
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                      <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email">
+                      <input type="email" name="email" value="{{ $workers['email'] }}" class="form-control" id="email" placeholder="Email">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Fullname</label>
                     <div class="col-sm-10">
-                     <input type="text" name="namaPerusahaan" class="form-control" placeholder="Fullname">
+                     <input type="text" name="namaPerusahaan" value="{{ $workers['namaLengkap'] }}" class="form-control" placeholder="Fullname">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Address</label>
                     <div class="col-sm-10">
-                     <input type="text" name="alamat" class="form-control" placeholder="Address">
+                     <input type="text" name="alamat" value="{{ $workers['alamat'] }}" class="form-control" placeholder="Address">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Phone Number</label>
                     <div class="col-sm-10">
-                     <input type="text" name="noTelp" class="form-control" placeholder="Phone Number">
+                     <input type="text" name="noTelp" value="{{ $workers['noTelp'] }}" class="form-control" placeholder="Phone Number">
                     </div>
                   </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                   <button type="submit" class="btn btn-info">Save</button>
-                  <button type="submit" class="btn btn-default float-right">Cancel</button>
+                  <button href="javascript:history.back()">Cancel</button>
                 </div>
                 <!-- /.card-footer -->
               </form>
+              @endforeach
             </div>
             <!-- /.card -->
           </div>

@@ -9,23 +9,13 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\SetNewPasswordController;
 use App\Http\Controllers\WorkerController;
 use App\Http\Controllers\ClientController;
- 
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\MasterController;
+use App\Http\Controllers\TreatmentController;
+
 //login
-
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
-
-//worker
-Route::get('post_detail_worker', [WorkerController::class, 'showWorkerForm'])->name('post_detail_worker');
-Route::post('post_detail_worker', [WorkerController::class, 'post_detail_worker']);
-
-//get detail Client
-Route::get('/get-detail-client', [ClientController::class, 'get_detail_client']);
-
-//Client
-//Route::get('/post_detail_client', [ClientController::class, 'post_detail_client']);
-//Route::get('post_detail_client', [ClientController::class, 'ShowDetailClientForm'])->name('post_detail_client');
-Route::post('post_detail_client', [ClientController::class, 'post_detail_client']);
+Route::get('/', [LoginController::class, 'index'])->name('login');
+Route::post('/postlogin', [LoginController::class, 'postlogin']);
 
 //email
 Route::get('get_OTP', [SendEmailController::class, 'showSendEmail'])->name('get_OTP');
@@ -51,30 +41,85 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
-Route::get('/Master', function () {
-    return view('module/master/index');
-});
+Route::put('/details/{id}', 'WorkerController@update')->name('details.update');
+Route::get('/items/{id}', 'WorkerController@show')->name('items.show');
+Route::get('/get_list_worker/{id}', 'WorkerController@show')->name('get_list_worker');
+//Route::get('/get_list_worker/{id}', [WorkerController::class, 'get_list_worker']);
 
-Route::get('/Schedule', function () {
-    return view('module/schedule/index');
-});
 
-Route::get('/Complain', function () {
-    return view('module/complain/index');
-});
+//TREATMENT
+Route::get('get_list_treatment', [TreatmentController::class, 'get_list_treatment']);
 
-Route::get('/Service', function () {
-    return view('module/service/treatment/index'); 
-});
+//MASTER
+Route::get('get_list_role', [MasterController::class, 'get_list_role']);
+Route::get('get_list_workingType', [MasterController::class, 'get_list_workingType']);
+Route::get('get_list_freqType', [MasterController::class, 'get_list_freqType']);
 
-Route::get('/Article', function () {
-    return view('module/master/v_article');
-});
-
-Route::get('/a', function () {
-    return view('module/master/v_customer');
-});
+//get list worker schedule  form
+//Route::get('/search-data', 'ScheduleController@searchData');
+Route::get('/search-data', [ScheduleController::class, 'searchData'])->name('searchData');
 
 Route::get('/Account', function () {
     return view('module/account/index');
 });
+
+Route::get('/detail-profile', function () {
+    return view('module/account/v_detailProfile');
+});
+
+    Route::get('/Master', function () {
+        return view('module/master/index');
+    });
+     
+    //Schedule
+    Route::get('/get_listSchedule', function () {
+        return view('module/schedule/index');
+    })->name('get_list_worker');
+    Route::post('addSchedule', [ScheduleController::class, 'addSchedule']);
+    Route::get('get_listSchedule', [ScheduleController::class, 'get_listSchedule']);
+    Route::get('/fetch-data', 'ScheduleController@fetchData')->name('fetch.data');
+
+    Route::get('/Complain', function () {
+        return view('module/complain/index');
+    });
+     
+    Route::get('/Service', function () {
+        return view('module/service/treatment/index'); 
+    });
+    
+    Route::get('/Article', function () {
+        return view('module/master/v_article');
+    });
+    
+    Route::get('/a', function () {
+        return view('module/master/v_customer');
+    });
+    
+//get list worker
+Route::get('/get_list_worker', function () {
+    return view('module/account/worker');
+})->name('get_list_worker');
+Route::get('get_list_worker', [WorkerController::class, 'get_list_worker']);
+Route::get('/details/{id}', 'WorkerController@showDetails')->name('details.show');
+    
+//get list Client
+Route::get('/get_list_client', function () {
+    return view('module/account/client');
+})->name('get_list_client');
+Route::get('get_list_client', [ClientController::class, 'get_list_client']);
+
+//post detail worker 
+Route::get('/add-detail-worker', function () {
+    return view('module/account/v_Addworker');
+})->name('add-detail-worker');
+Route::post('insert-detail-worker', [WorkerController::class, 'addDetailworker']);
+
+//get list worker
+
+//POSTClient
+Route::get('/post_detail_client/{body}', function ($body) {
+    return view('welcome');
+})->name('post_detail_client');
+Route::get('post_detail_client', [ClientController::class, 'ShowDetailClientForm1'])->name('post_detail_client');
+//Route::get('post_detail_client', [ClientController::class, 'ShowDetailClientForm'])->name('post_detail_client');
+Route::post('post_detail_client', [ClientController::class, 'post_detail_client']);

@@ -7,8 +7,8 @@
         <div class="alert alert-danger">
             {{ session('access_token') }}
         </div>
-
-    <p>error: {{ $errorMessage }}</p><br>
+        <p>error: {{ $errorMessage }}</p><br>
+    <p>error:</p><br>
 
 </body>
 </html>

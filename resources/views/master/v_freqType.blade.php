@@ -2,16 +2,6 @@
   @include('_layout.sidebar')
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Register form</h1>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
 
     <!-- Main content -->
     <section class="content">
@@ -29,22 +19,23 @@
                   <thead>
                   <tr>
                     <th>no</th>
-                    <th>Email</th>
-                    <th>Password</th>
-                    <th>Role</th>
+                    <th>Freq Type</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
+                  @php $no = 1; @endphp
+                  @foreach($data as $value)
                   <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
+                    <td>{{ $no++ }}</td>
+                    <td>{{ $value }}</td>
+                    <td><a class="btn btn-info"  href="{{ url('add-detail-worker')
+                             }}"/>Edit</a>
+                          <a class="btn btn-danger"  href="#"
+                          onclick="return confirm('Yakin di Hapus?')"/>Delete</a>
                     </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td> 4</td>
                   </tr>
+                  @endforeach
                   </tbody>
                 </table>
               </div>
@@ -86,27 +77,9 @@
                 @csrf
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                  </div>
-                  <div class="form-group">
-                  <label for="exampleInputPassword1">Password</label>
-                    <div class="input-group mb-3">
-                      <input name="password" type="password" value="" class="form-control" id="password" placeholder="password" required="true" aria-label="password" aria-describedby="basic-addon1" />
-                        <span class="input-group-text" onclick="password_show_hide();">
-                          <i class="fas fa-eye" id="show_eye"></i>
-                          <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
-                        </span>
-                      </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="role">Role</label>
-                    <select id="role" name="role" class="form group select2" style="width: 100%;">
-                      <option>CLIENT</option>
-                      <option>ADMIN</option>
-                      <option>WORKER</option>
-                  </select>
-                  </div>
+                    <label for="inputProjectLeader">Freq Type</label>
+                    <input type="text" name="noTelpPic" id="noTelpPic" class="form-control">
+                  </div> 
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>

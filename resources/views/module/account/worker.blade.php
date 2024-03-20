@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Register form</h1>
+            <h1>Worker form</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -25,27 +25,39 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="client" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>no</th>
+                    <th>Nama Lengkap</th>
+                    <th>Alamat</th>
+                    <th>No Telp</th>
                     <th>Email</th>
-                    <th>Password</th>
                     <th>Role</th>
-                    <th>Action</th>
+                    <th>Status</th>
+                    <th>action</th>
+                    <th></th> 
                   </tr>
-                  </thead>
-                  <tbody>
+                  @php $no = 1; @endphp
+                  @foreach($data as $value)
                   <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td> 4</td>
+                      <td>{{ $no++ }}</td>   
+                      <td>{{ $value['namaLengkap'] }}</td>  
+                      <td>{{ $value['alamat'] }}</td>
+                      <td>{{ $value['noTelp'] }}</td>  
+                      <td>{{ $value['user']['email'] }}</td>
+                      <td>{{ $value['user']['role'] }}</td>
+                      <td><a class="btn btn-info"  href="{{ url('add-detail-worker')
+                             }}"/>Aktif</a>
+                      </td>
+                      <td>
+                        <a class="btn btn-info"  href="{{ url('/details/{id}') }}"/>Edit</a>
+                        <a class="btn btn-danger"  href="#" onclick="return confirm('Yakin di Hapus?')"/>Delete</a>
+                        <a class="btn btn-primary"  href="{{ url('add-detail-worker') }}"/>Add</a>
+                      </td>
                   </tr>
-                  </tbody>
+                  @endforeach
+                  </thead>
                 </table>
               </div>
               <!-- /.card-body -->
@@ -101,11 +113,11 @@
                   </div>
                   <div class="form-group">
                     <label for="role">Role</label>
-                    <select id="role" name="role" class="form group select2" style="width: 100%;">
+                    <select id="role" name="role" class="form-control" style="width: 100%;">
                       <option>CLIENT</option>
                       <option>ADMIN</option>
                       <option>WORKER</option>
-                  </select>
+                    </select>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -137,8 +149,4 @@
       hide_eye.style.display = "none";
     }
   }
-
-  $('.select2').select2({
-    theme: 'bootstrap4'
-  })
 </script>

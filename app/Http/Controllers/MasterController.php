@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -9,24 +10,12 @@ use GuzzleHttp\Exception\RequestException;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use App\Http\Controllers\LoginController;
 
-class ClientController extends Controller
+class MasterController extends Controller
 {
-    //
-    public function ShowDetailClientForm1()
-    {
-        return view('welcome');
-    }
-
-    public function Showlistclient()
-    {
-        $data = $this->get_list_client();
-        return view('module/account/client', ['data' => $data]);
-    }
-    //
-    public function get_list_client()
+    public function get_list_role()
     {
         // Ganti URL dengan URL endpoint Spring Boot yang dilindungi oleh token
-        $url = 'http://192.168.1.101:8181/admin/search-client';
+        $url = 'http://192.168.1.101:8181/admin/get-role';
 
         // Buat objek Guzzle HTTP Client
         $client = new Client();
@@ -44,7 +33,8 @@ class ClientController extends Controller
 
             // Ambil body dari respons
             $body = $response->getBody()->getContents();
-            return view('module/account/client', compact('body'));
+            $data = json_decode($body, true);
+            return view('master/v_role', compact('data'));
 
         } catch (\Exception $e) {
             // Tangani pengecualian jika terjadi kesalahan
@@ -53,17 +43,10 @@ class ClientController extends Controller
 
     }
 
-    public function post_detail_client(Request $request)
+    public function get_list_workingType()
     {
         // Ganti URL dengan URL endpoint Spring Boot yang dilindungi oleh token
-        $url = 'http://192.168.1.101:8181/admin/create-detail-user';
-
-        $formData = [
-            'email' => $request->input('email'),
-            'namaPerusahaan' => $request->input('namaPerusahaan'),
-            'noTelp' => $request->input('noTelp'),
-            'alamat' => $request->input('alamat'),
-        ];
+        $url = 'http://192.168.1.101:8181/admin/get-working-type';
 
         // Buat objek Guzzle HTTP Client
         $client = new Client();
@@ -72,41 +55,53 @@ class ClientController extends Controller
 
         try {
             // Buat permintaan GET dengan menyertakan token akses di header
-            $response = $client->post($url, [
+            $response = $client->get($url, [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $accessToken,
-                    'Accept' => 'application/json',
-                ],
-                'form_params' =>
-                [
-                    'json' => $formData,
+                    'Accept' => 'application/json', // Sesuaikan dengan tipe konten yang diharapkan
                 ],
             ]);
 
             // Ambil body dari respons
             $body = $response->getBody()->getContents();
-            return view('v_addworker', compact('body'));
+            $data = json_decode($body, true);
+            return view('master/v_workingType', compact('data'));
 
-        } catch (RequestException  $e) {
+        } catch (\Exception $e) {
             // Tangani pengecualian jika terjadi kesalahan
             return view('error', ['errorMessage' => $e->getMessage()]);
         }
 
     }
 
-    public function showDetails($id)
+    public function get_list_freqType()
     {
+        // Ganti URL dengan URL endpoint Spring Boot yang dilindungi oleh token
+        $url = 'http://192.168.1.101:8181/admin/get-freq-type';
+
+        // Buat objek Guzzle HTTP Client
         $client = new Client();
 
-        try {
-            $response = $client->get('http://192.168.1.101:8181/admin/get-detail-by-email' . $id);
-            $detail = json_decode($response->getBody()->getContents(), true);
+        $accessToken = session('access_token');
 
-            return view('module/account/v_detailWorker', compact('detail'));
+        try {
+            // Buat permintaan GET dengan menyertakan token akses di header
+            $response = $client->get($url, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $accessToken,
+                    'Accept' => 'application/json', // Sesuaikan dengan tipe konten yang diharapkan
+                ],
+            ]);
+
+            // Ambil body dari respons
+            $body = $response->getBody()->getContents();
+            $data = json_decode($body, true);
+            return view('master/v_freqType', compact('data'));
+
         } catch (\Exception $e) {
-            // Handle request exceptions (e.g., HTTP errors)
-            return 'An error occurred: ' . $e->getMessage();
+            // Tangani pengecualian jika terjadi kesalahan
+            return view('error', ['errorMessage' => $e->getMessage()]);
         }
+
     }
 }
- 

@@ -75,13 +75,30 @@
       @endif
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="fa fa-gear"></i>
-			    Log Out
+        <ul class="navbar-nav ml-auto">
+      <!-- User Dropdown Menu -->
+      <li class="nav-item dropdown user user-menu">
+        <a href="#" class="nav-link" data-toggle="dropdown">
+              <img src="{{ asset('lte/dist/img/avatar.png') }}" class="user-image" alt="User Image">
+              <span class="hidden-xs">username</span>
+              <span class="hidden-xs">role</span>
         </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <div class="dropdown-divider"></div>
+          <a href="#" class="dropdown-item">
+            <i class="fas fa-edit mr-2"></i> Change Password
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="{{url('#')}}" class="dropdown-item">
+            <i class="fas fa-user mr-2"></i> {{ __('Profile') }}
+          </a>
+          <div class="dropdown-divider"></div>
+                <a href="" class="dropdown-item" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                    <i class="fa  fa-unlock mr-2"></i>  {{ __('Sign Out')  }}
+                </a>
+                <form id="logout-form" action="" method="POST" style="display: none;">{{ csrf_field() }}</form>
+        </div>
       </li>
     </ul>
   </nav>

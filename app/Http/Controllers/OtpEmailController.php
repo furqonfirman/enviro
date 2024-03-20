@@ -26,7 +26,7 @@ class OtpEmailController extends Controller
             $responseData = $response->json();
             if ($statusCode == 200) {
                 // Redirect the user to another page
-                return redirect('/login')->with('success', $responseData['data']);
+                return redirect('/')->with('success', $responseData['data']);
                 //return view('dashboard');
             }elseif ($statusCode == 404) {
                 return redirect('/verifikasi_email')->with('error', $responseData['errors']);

@@ -23,10 +23,8 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
-      @if(session('error'))
-      {{
-        session('error')
-      }}
+      @if($errors->any())
+      <h4>{{$errors->first()}}</h4>
       @endif
       <form action="{{ route('login') }}" method="POST">
         @csrf

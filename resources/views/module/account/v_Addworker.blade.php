@@ -12,46 +12,44 @@
               <div class="card-header">
                 <h3 class="card-title">Add Detail Worker Form</h3>
               </div>
-              <!-- /.card-header -->
+              @if(isset($errorMessage))
+                <div class="error-message">
+                    {{ $errorMessage }}
+                </div>
+              @endif
               <!-- form start -->
-              @if(session('error'))
-              {{session('error')}}
-              @endif
-              @if(session('error'))
-              {{session('error')}}
-              @endif
-              <form action="{{ route('post_detail_worker') }}" method="POST" class="form-horizontal">
+              <form action="{{ url ('insert-detail-worker') }}" method="POST" class="form-horizontal">
               @csrf
                 <div class="card-body">
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                      <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email">
+                      <input type="email" name="email" class="form-control" id="email" placeholder="Email" required>
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Fullname</label>
                     <div class="col-sm-10">
-                     <input type="text" name="namaPerusahaan" class="form-control" placeholder="Fullname">
+                     <input type="text" name="namaLengkap" id="namaLengkap"  class="form-control" placeholder="Fullname" required>
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Phone Number</label>
                     <div class="col-sm-10">
-                     <input type="text" name="noTelp" class="form-control" placeholder="Phone Number">
+                     <input type="text" name="noTelp" id="noTelp" class="form-control" placeholder="Phone Number" required>
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Address</label>
                     <div class="col-sm-10">
-                     <input type="text" name="alamat" class="form-control" placeholder="Address">
+                     <input type="text" name="alamat" id="alamat" class="form-control" placeholder="Address" required>
                     </div>
                   </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                   <button type="submit" class="btn btn-info">Save</button>
-                  <button type="submit" class="btn btn-default float-right">Cancel</button>
+                  <a href="javascript:history.back()">Cancel</a>
                 </div>
                 <!-- /.card-footer -->
               </form>

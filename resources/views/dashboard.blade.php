@@ -29,14 +29,9 @@
 
     <!-- Main content -->
     <section class="content">
-    <div class="alert alert-danger">
+        <div class="alert alert-danger">
             {{ session('access_token') }}
         </div>
-
-    <p>Body Respons: {{ $responseData['statusCode'] }}</p><br>
-    <p>Body Respons: {{ $responseData['message'] }}</p>
-    <p>Body Respons: {{ $responseData['token'] }}</p><br>
-    <p>Body Respons: {{ $responseData['role'] }}</p><br>
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">

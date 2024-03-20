@@ -11,17 +11,16 @@
           <div class="card card-info">
               <div class="card-header">
                 <h3 class="card-title">Add Detail Worker Form</h3>
-              @if(session('success'))
-              {{session('message')}}
-              @endif
-              @if(session('errors'))
-              {{session('errors')}}
-              @endif
               </div>
               <!-- /.card-header -->
               <!-- form start -->
                 <div class="card-body">
-              <form action="{{ url ('post_detail_client') }}" method="POST" class="form-horizontal">
+              @if(isset($errorMessage))
+                <div class="error-message">
+                  {{ $errorMessage }}
+                </div>
+              @endif
+              <form action="{{ route ('post_detail_client') }}" method="POST" class="form-horizontal">
               @csrf
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Email</label>

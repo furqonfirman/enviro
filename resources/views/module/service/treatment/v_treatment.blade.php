@@ -36,42 +36,28 @@
                   </tr>
                   </thead>
                   <tbody>
+                  @php $no = 1; @endphp
+                  @foreach($data as $value)
                   <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
+                      <td>{{ $no++ }}</td>
+                      <td>{{ $value['idTreatment'] }}</td>
+                      <td>{{ $value['area'] }}</td>
+                      <td>{{ $value['ai'] }}</td>
+                      <td>{{ $value['rekarks'] }}</td>
+                      <td>{{ $value['date'] }}</td>
+                      <td>{{ $value['timeIn'] }}</td>
+                      <td>{{ $value['timeOut'] }}</td>
+                      <td>{{ $value['rekomendasiWorker'] }}</td>
+                      <td>{{ $value['saranClient'] }}</td>
+                      <td><a class="btn btn-info"  href="{{ url('add-detail-worker')
+                             }}"/>Edit</a>
+                          <a class="btn btn-danger"  href="#"
+                          onclick="return confirm('Yakin di Hapus?')"/>Delete</a>
+                          <a class="btn btn-primary"  href="{{ url('add-detail-worker')
+                             }}"/>Show Detail</a>
+                      </td>
                   </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 5.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td>5</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 5.5
-                    </td>
-                    <td>Win 95+</td>
-                    <td>5.5</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 6
-                    </td>
-                    <td>Win 98+</td>
-                    <td>6</td>
-                    <td>A</td>
-                  </tr>
+                  @endforeach
                   </tbody>
                 </table>
               </div>
@@ -112,9 +98,9 @@
           </div>
           <div class="card-body">
                 <div class="form-group">
-                  <label>Minimal</label>
+                  <label>Select Customer</label>
                   <select class="form group select2" style="width: 100%;">
-                    <option selected="selected">Select Customer</option>
+                    <option selected="selected">Search</option>
                     <option>Alaska</option>
                     <option>California</option>
                     <option>Delaware</option>
@@ -122,34 +108,6 @@
                     <option>Texas</option>
                     <option>Washington</option>
                   </select>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
-                  <div class="card bg-light d-flex flex-fill">
-                    <div class="card-header text-muted border-bottom-0">
-                      Customer name
-                    </div>
-                    <div class="card-body pt-0">
-                      <div class="row">
-                        <div class="col-7">
-                          <h2 class="lead"><b>Nicole Pearson</b></h2>
-                          <ul class="ml-4 mb-0 fa-ul text-muted">
-                            <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
-                            <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
-                          </ul>
-                        </div>
-                        <div class="col-5 text-center">
-                          <img src="{{ asset('lte/dist/img/user1-128x128.jpg') }}" alt="user-avatar" class="img-circle img-fluid">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-footer">
-                      <div class="text-right">
-                        <a href="#" class="btn btn-sm btn-primary">
-                          <i class="fas fa-user"></i> View Profile
-                        </a>
-                      </div>
-                    </div>
-                  </div>
                 </div>
             </div>
         </div>

@@ -3,16 +3,6 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Register form</h1>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -25,25 +15,39 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+              {{ session('access_token') }}
+                <table id="client" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>no</th>
-                    <th>ID</th>
+                    <th>id</th>
+                    <th>Company Name</th>
+                    <th>Address</th>
+                    <th>Phone Number</th>
+                    <th>User ID</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>Action</th>
+                    <th>action</th> 
                   </tr>
-                  </thead>
-                  <tbody>
+                  @php $no = 1; @endphp
+                  @foreach(json_decode($body, true) as $value)
                   <tr>
-                  @foreach ($body as $item)
-                    <td>{{ $item['id'] }}</td>
-                    <td>{{ $item['email'] }}</td>
-                    <td>{{ $item['role'] }}</td>
-                    @endforeach
+                      <td>{{ $no++ }}</td>
+                      <td>{{ $value['id'] }}</td>   
+                      <td>{{ $value['namaPerusahaan'] }}</td>  
+                      <td>{{ $value['alamat'] }}</td>
+                      <td>{{ $value['noTelp'] }}</td>
+                      <td>{{ $value['user']['id'] }}</td>
+                      <td>{{ $value['user']['email'] }}</td>
+                      <td>{{ $value['user']['role'] }}</td>
+                      <td><a class="btn btn-info"  href="#"/>Edit</a>
+                          <a class="btn btn-danger"  href="#"
+                          onclick="return confirm('Yakin di Hapus?')"/>Delete</a>
+                          <a class="btn btn-primary"  href="{{ route('post_detail_client') }}"/>Detail</a>
+                      </td>
                   </tr>
-                  </tbody>
+                  @endforeach
+                  </thead>
                 </table>
               </div>
               <!-- /.card-body -->
@@ -135,6 +139,7 @@
       hide_eye.style.display = "none";
     }
   }
+
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
