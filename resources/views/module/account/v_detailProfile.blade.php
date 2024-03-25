@@ -99,10 +99,10 @@
                       <!-- /.user-block -->
                       <div class="row mb-3">
                         <div class="col-sm-6">
-                          <img class="img-fluid" src="{{ asset('lte/dist/img/photo1.png') }}" alt="Photo">
+                          <img class="img-fluid" src="{{ asset('lte/dist/img/download.png') }}" alt="Photo">
                         </div>
                         <div class="col-sm-6">
-                          <img class="img-fluid" src="{{ asset('lte/dist/img/photo1.png') }}" alt="Photo">
+                          <img class="img-fluid" src="{{ asset('lte/dist/img/prod-1.jpg') }}" alt="Photo">
                         </div>
                         <!-- /.col -->
                         <!-- /.col -->
@@ -114,12 +114,14 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form>
+                        <form action="/upload" method="POST" enctype="multipart/form-data">
+                        @csrf
                           <div class="card-body">
-                            <div class="form-group">
+                          <div class="form-group">
+                            <label for="exampleInputFile">File input</label>
                               <div class="input-group">
                                 <div class="custom-file">
-                                  <input type="file" class="custom-file-input" id="exampleInputFile">
+                                  <input type="file" name="file" class="custom-file-input" id="exampleInputFile">
                                   <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                 </div>
                                 <div class="input-group-append">
@@ -242,3 +244,8 @@
   </div>
   <!-- /.content-wrapper -->
   @include('_layout.footer')
+<script>
+  $(function () {
+    bsCustomFileInput.init();
+  });
+</script>

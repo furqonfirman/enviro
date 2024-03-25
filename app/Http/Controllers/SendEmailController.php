@@ -17,25 +17,20 @@ class SendEmailController extends Controller
     }
     public function get_OTP(Request $request)
     {
-        //$http = new \GuzzleHttp\Client;
-        //$email = $request->email;
-        //$password = $request->password;
-        $response = Http::put('http://192.168.1.101:8181/auth/regenerate-otp',[
+        $response = Http::put('http://192.168.1.57:8181/auth/regenerate-otp',[
                 'email'=>$request->input('email'),
             ]);
             $statusCode = $response->status();
             $responseData = $response->json();
             if ($statusCode == 200) {
-                // Redirect the user to another page
-                return redirect('/verifikasi_email')->with('success', $responseData['success']);
-                //return view('login');
-                //return view('verifikasi_email')->with('$responseData', $data);
-            }elseif ($statusCode == 404) {
-                return redirect('/get_OTP')->with('errors', $responseData['errors']);
-                //return view('login');
+                //return view('auth/otp_email', ['data' => $data]);
+                //return view('auth/otp_email', compact('body'));
+                //eturn view('auth/otp_email')->with('responseBody', $body);
+                return redirect('/verifikasi_email')->with('email', $responseData['email']);
+                //return redirect()->route('verifikasi_email')->with('responseData', $responseData);
             }
             else{
-                return redirect('/get_OTP')->with('errors', $responseData['errors']);
+                return redirect()->back()->with('error', $responseData['error']);
             }
     }
 }

@@ -54,6 +54,7 @@
                         <a class="btn btn-info"  href="{{ url('/details/{id}') }}"/>Edit</a>
                         <a class="btn btn-danger"  href="#" onclick="return confirm('Yakin di Hapus?')"/>Delete</a>
                         <a class="btn btn-primary"  href="{{ url('add-detail-worker') }}"/>Add</a>
+                        <a class="btn btn-primary"  href="{{ url('add-detail-worker') }}"/>show</a>
                       </td>
                   </tr>
                   @endforeach

@@ -95,9 +95,9 @@
           <div class="card-body">
                 <div class="form-group">
                   <label>Select Client</label>
-                  <select name="namaLengkap" id="Client" class="form group select2" style="width: 100%;">
+                  <select name="namaLengkap" class="form group select2" style="width: 100%;">
                     <option selected="selected">Search</option>
-                    <option value=""></option>
+                        <option></option>
                   </select>
                 </div>
                 <div class="form-group">
@@ -214,28 +214,6 @@
   <!-- End modal -->
   <!-- /.content-wrapper -->
   @include('_layout.footer')
-  <script>
-        $(document).ready(function() {
-            $('#Client').select2({
-              theme: 'bootstrap4'
-                ajax: {
-                    url: '{{ route("fetch.data") }}',
-                    dataType: 'json',
-                    delay: 250,
-                    processResults: function (data) {
-                        return {
-                            results: $.map(data, function (item) {
-                                return {
-                            text: item.namaLengkap
-                                }
-                            })
-                        };
-                    },
-                    cache: true
-                }
-            });
-        });
-    </script>
 
   <script>
   $(function () {

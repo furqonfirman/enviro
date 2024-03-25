@@ -15,35 +15,35 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              {{ session('access_token') }}
                 <table id="client" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>no</th>
-                    <th>id</th>
                     <th>Company Name</th>
                     <th>Address</th>
                     <th>Phone Number</th>
-                    <th>User ID</th>
                     <th>Email</th>
                     <th>Role</th>
+                    <th>status</th> 
                     <th>action</th> 
                   </tr>
                   @php $no = 1; @endphp
-                  @foreach(json_decode($body, true) as $value)
+                  @foreach($data as $value)
                   <tr>
                       <td>{{ $no++ }}</td>
-                      <td>{{ $value['id'] }}</td>   
                       <td>{{ $value['namaPerusahaan'] }}</td>  
                       <td>{{ $value['alamat'] }}</td>
                       <td>{{ $value['noTelp'] }}</td>
-                      <td>{{ $value['user']['id'] }}</td>
                       <td>{{ $value['user']['email'] }}</td>
                       <td>{{ $value['user']['role'] }}</td>
-                      <td><a class="btn btn-info"  href="#"/>Edit</a>
-                          <a class="btn btn-danger"  href="#"
-                          onclick="return confirm('Yakin di Hapus?')"/>Delete</a>
-                          <a class="btn btn-primary"  href="{{ route('post_detail_client') }}"/>Detail</a>
+                      <td>
+                        <input type="checkbox" data-toogle="toogle" data-on="Aktif" data-off="Non Aktif">
+                      </td>
+                      <td>
+                        <a class="btn btn-info" id="edit"  href="{{ url('get-client', $value['user']['email']) }}"/>Edit</a>
+                        <a class="btn btn-danger" id="delete"  href="#" onclick="return confirm('Yakin di Hapus?')"/>Delete</a>
+                        <a class="btn btn-primary" id="add" href="{{ url('add-detail-client') }}"/>Add</a>
+                        <a class="btn btn-primary" id="show" href="{{ url('show-detail-client',$value['user']['email']) }}"/>Show</a>
                       </td>
                   </tr>
                   @endforeach
@@ -123,6 +123,7 @@
   <!-- End modal -->
   <!-- /.content-wrapper -->
   @include('_layout.footer')
+
 <script>
   function password_show_hide() {
     var x = document.getElementById("password");

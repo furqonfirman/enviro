@@ -72,9 +72,12 @@
 <script src="{{ asset('lte/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
 <!-- dropzonejs -->
 <script src="{{ asset('lte/plugins/dropzone/min/dropzone.min.js') }}"></script>
+<!-- bs-custom-file-input -->
+<script src="{{ asset('lte/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 <!-- InputMask -->
 <script src="{{ asset('lte/plugins/moment/moment.min.js') }}"></script>
 <script src="{{ asset('lte/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
 

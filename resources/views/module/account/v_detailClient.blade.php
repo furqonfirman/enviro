@@ -1,0 +1,1 @@
+<p>Name: {{ $detail['name'] }}</p>

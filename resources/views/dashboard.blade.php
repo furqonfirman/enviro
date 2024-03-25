@@ -2,11 +2,6 @@
   <!-- /.navbar -->
   <!-- Main Sidebar Container -->
   @include('_layout.sidebar')
-  @if(session('success'))
-      {{
-        session('message')
-      }}
-  @endif
     
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -29,9 +24,6 @@
 
     <!-- Main content -->
     <section class="content">
-        <div class="alert alert-danger">
-            {{ session('access_token') }}
-        </div>
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
@@ -98,7 +90,7 @@
         </div>
         <!-- /.row -->
         <!-- Main row -->
-        <!-- /.row (main row) -->
+        <!-- /.row (main row) --> 
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
@@ -106,3 +98,24 @@
   <!-- /.content-wrapper -->
 
 @include('_layout.footer')
+<!-- <script>
+$(document).ready(function(){
+    var successMessage = "{{ session('success') }}";
+    if(successMessage) {
+        alert(successMessage); 
+    }
+});
+</script> -->
+
+<script>
+$(document).ready(function() {
+  @if(session('success'))
+    Swal.fire({
+      title: 'Success!',
+      text: '{{ session('success') }}',
+      icon: 'success',
+      timer: 5000 // Close the alert after 3 seconds
+    });
+  @endif
+});
+</script>

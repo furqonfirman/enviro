@@ -39,15 +39,10 @@
             <div class="col-md-5 mt-5">
                 <div class="bg-white p-5 rounded-3 shadow-sm border">
                     <div>
-                        @if(session('success'))
-                            {{
-                                session('success')
-                            }}
-                            @endif
-                            @if(session('errors'))
-                            {{
-                                session('errors')
-                            }}
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
                         @endif
                         <p class="text-center text-success" style="font-size: 5.5rem;"><i class="fa-solid fa-envelope-circle-check"></i></p>
                         <p class="text-center text-center h5 ">Please input your email</p>

@@ -1,5 +1,5 @@
 @include('_layout.header')
-  @include('_layout.sidebar')
+  @include('_layout.sidebar') 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -14,7 +14,10 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form class="form-horizontal">
+              <form action="{{ url ('insert-detail-client') }}" method="POST" class="form-horizontal">
+              @csrf
+              @method('PUT')
+              foreach($detail as $value)
                 <div class="card-body">
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label">ID</label>
@@ -25,25 +28,25 @@
                   <div class="form-group row">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                     <div class="col-sm-10">
-                      <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email">
+                      <input type="email" name="email" id="email" class="form-control" value="{{ $detail['detailClient']['user']['email'] }}" placeholder="Email">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Fullname</label>
                     <div class="col-sm-10">
-                     <input type="text" name="namaPerusahaan" class="form-control" placeholder="Fullname">
+                     <input type="text" name="namaPerusahaan" id="namaPerusahaan" class="form-control" value="{{ $detail['detailClient']['namaPerusahaan'] }}" placeholder="Fullname">
                     </div>
-                  </div>
+                  </div> 
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Address</label>
                     <div class="col-sm-10">
-                     <input type="text" name="alamat" class="form-control" placeholder="Address">
+                     <input type="text" name="alamat" id="alamat" value="{{ $detail['detailClient']['alamat'] }}" class="form-control" placeholder="Address">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Phone Number</label>
                     <div class="col-sm-10">
-                     <input type="text" name="noTelp" class="form-control" placeholder="Phone Number">
+                     <input type="text" name="noTelp" id="noTelp" value="{{ $detail['detailClient']['noTelp'] }}" class="form-control" placeholder="Phone Number">
                     </div>
                   </div>
                 </div>

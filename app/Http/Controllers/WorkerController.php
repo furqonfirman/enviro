@@ -44,7 +44,7 @@ class WorkerController extends Controller
     {
         $accessToken = session('access_token');
         $client = new Client();
-        $response = $client->get('http://192.168.1.101:8181/admin/search-worker' . $id);
+        $response = $client->get('http://192.168.1.119:8181/admin/search-worker' . $id);
 
         // Check if the request was successful
         if ($response->getStatusCode() === 200) {
@@ -59,7 +59,7 @@ class WorkerController extends Controller
     public function update(Request $request, $id)
     {
         $client = new Client();
-        $response = $client->put('http://192.168.1.101:8181/admin/update-detail-user' . $id, [
+        $response = $client->put('http://192.168.1.119:8181/admin/update-detail-user' . $id, [
             'json' => $request->all(),
         ]);
 
@@ -76,7 +76,7 @@ class WorkerController extends Controller
     public function get_list_worker()
     {
         // Ganti URL dengan URL endpoint Spring Boot yang dilindungi oleh token
-        $url = 'http://192.168.1.101:8181/admin/search-worker';
+        $url = 'http://192.168.1.119:8181/admin/search-worker';
 
         // Buat objek Guzzle HTTP Client
         $client = new Client();
@@ -108,7 +108,7 @@ class WorkerController extends Controller
     {
         $accessToken = session('access_token');
         // Ganti URL dengan URL endpoint Spring Boot yang dilindungi oleh token
-        $url = 'http://192.168.1.101:8181/admin/create-detail-user';
+        $url = 'http://192.168.1.119:8181/admin/create-detail-user';
 
         $formData = [
             'email' => $request->input('email'),
@@ -130,27 +130,31 @@ class WorkerController extends Controller
                 'headers' =>  $headers,
                 'json' => $formData,
             ]);
-
             // Ambil body dari respons
-            $body = $response->getBody()->getContents();
-            $data = json_decode($body, true);
-            return view('module/account/v_Addworker', ['data' => $data]);
-            //return view('module/account/v_Addworker', compact('body'));
+            $statusCode = $response->getStatusCode();
+            $responseData = $response->getBody()->getContents();
+            $errorMessage = $response->getBody()->getContents();
+            $message = $response->getReasonPhrase();
+            //$responseData = json_decode($responseBody, true);
+            if ($statusCode == 200) {
+                return view('module/account/v_Addworker', ['responseData' => $responseData]);   
+            }
 
         } catch (RequestException  $e) {
             // Tangani pengecualian jika terjadi kesalahan
             if ($e->hasResponse()) {
                 $response = $e->getResponse();
-                $statusCode = $response->getStatusCode();
+                //$statusCode = $response->getStatusCode();
                 $errorMessage = $response->getBody()->getContents();
-                //return view('module/account/v_Addworker', compact('errorMessage'));
-                return view('module/account/v_Addworker', ['errorMessage' => $e->getMessage()]);
+                //return response()->json(['error' => $errorMessage]);
+                //$message = $response->getReasonPhrase();
+                //return redirect()->back()->with('error', $errorMessage['error']);
+                return view('module/account/v_Addworker', ['errorMessage' => $errorMessage]);
                 // Handle error response
             } else {
                 // Handle other exceptions (e.g., network errors)
                 $errorMessage = $e->getMessage();
             }
-            return view('error', ['errorMessage' => $e->getMessage()]);
         }
     }
 }

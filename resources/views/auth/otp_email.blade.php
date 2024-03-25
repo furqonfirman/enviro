@@ -73,38 +73,38 @@ body {
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-5 mt-5">
-            @if(session('success'))
-                {{
-                    session('success')
-                }}
-            @endif
-            @if(session('error'))
-                {{
-                    session('error')
-                }}
-            @endif
                 <div class="bg-white p-5 rounded-3 shadow-sm border">
                     <div>
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        @if(session('data'))
+                            <div class="alert alert-danger">
+                                {{ session('data') }}
+                            </div>
+                        @endif
                         <p class="text-center text-success" style="font-size: 5.5rem;"><i class="fa-solid fa-envelope-circle-check"></i></p>
                         <p class="text-center text-center h5 ">Please check your email</p>
-                        <p class="text-muted text-center">We've sent a code to uremail@gmail.com</p>
+                        <p class="text-muted text-center">We've sent a code to your email</p>
                         <form action="{{ route('verifikasi_email') }}" method="post">
                         @csrf
                         @method('PUT')
                         <div class="row pt-2 pb-2">
                             <div class="col-6">
-                            <input type="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Email" required="required">
-                            <input type="text" name="otp" class="form-control" placeholder="Email" required="required">
+                            <input type="hidden" name="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" value="{{session('email')}}">
+                            <input type="text" name="otp" class="form-control" placeholder="OTP" required="required">
                             </div>
                         </div>
-                        <p class="text-muted text-center">Didn't get the code? <a href="" class="text-primary">Click to resend.</a></p>
+                        <p class="text-muted text-center">Didn't get the code? <a href="{{ route('get_OTP') }}" class="text-primary">Click to resend.</a></p>
 
                         <div class="row pt-3">
                             <div class="col-6">
                                 <button class="btn btn-outline-secondary w-100">Cancel</button>
                             </div>
                             <div class="col-6">
-                                <button type="submit" class="btn btn-primary">Verify</button>
+                                <button type="submit" class="btn btn-primary w-100">Verify</button>
                             </div>
                         </div>
                         </form>

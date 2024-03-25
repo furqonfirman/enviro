@@ -12,11 +12,12 @@
               <div class="card-header">
                 <h3 class="card-title">Add Detail Worker Form</h3>
               </div>
-              @if(isset($errorMessage))
-                <div class="error-message">
-                    {{ $errorMessage }}
-                </div>
+              @if(isset($responseData))
+              <div class="alert alert-danger">{{ $responseData }}</div>
+              @elseif(isset($errorMessage))
+                  <div class="alert alert-danger">{{ $errorMessage }}</div>
               @endif
+
               <!-- form start -->
               <form action="{{ url ('insert-detail-worker') }}" method="POST" class="form-horizontal">
               @csrf

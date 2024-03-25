@@ -23,17 +23,12 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
-      @if(session('errors'))
-      {{
-        session('errors')
-      }}
-      @endif
       @if(session('error'))
-      {{
-        session('errors')
-      }}
+        <div class="alert alert-danger">
+              {{ session('error') }}
+        </div>
       @endif
-      <form action="{{ url('postlogin') }}" method="POST">
+      <form action="{{ url('_login') }}" method="POST">
         @csrf
         <div class="input-group mb-3">
           <input type="email" name="email" id="email" class="form-control" placeholder="Email" required="required">

@@ -18,7 +18,7 @@ class OtpEmailController extends Controller
     }
     public function verifikasi_email(Request $request)
     {
-        $response = Http::put('http://192.168.1.101:8181/auth/verifikasi',[
+        $response = Http::put('http://192.168.1.57:8181/auth/verifikasi',[
                 'email'=>$request->input('email'),
                 'otp'=>$request->input('otp'),
             ]);
@@ -28,11 +28,13 @@ class OtpEmailController extends Controller
                 // Redirect the user to another page
                 return redirect('/')->with('success', $responseData['data']);
                 //return view('dashboard');
-            }elseif ($statusCode == 404) {
-                return redirect('/verifikasi_email')->with('error', $responseData['errors']);
+            }else if ($statusCode == 200) {
+                // Redirect the user to another page
+                //return redirect('/')->with('success', $responseData['data']);
+                //return view('dashboard');
             }
             else{
-                return view('_layout/otp_email');
+                return redirect()->back()->with('error', $responseData['error']);
             }
     }
 }

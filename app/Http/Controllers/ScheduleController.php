@@ -13,7 +13,7 @@ class ScheduleController extends Controller
     {
         $accessToken = session('access_token');
         // Ganti URL dengan URL endpoint Spring Boot yang dilindungi oleh token
-        $url = 'http://192.168.1.101:8181/admin/create-scheduling';
+        $url = 'http://192.168.1.57:8181/admin/create-scheduling';
 
         $formData = [
             'companyName' => $request->input('companyName'),
@@ -64,21 +64,10 @@ class ScheduleController extends Controller
         }
     }
 
-    public function searchData(Request $request)
-    {
-        $accessToken = session('access_token');
-
-        // Make an HTTP request to the external API
-        $client = new Client();
-        $response = $client->get('http://192.168.1.101:8181/admin/search-worker');
-        $body = $response->getBody()->getContents();
-        return view('module/schedule/index', ['body' => $body]);
-    }
-
     public function get_listSchedule()
     {
         // Ganti URL dengan URL endpoint Spring Boot yang dilindungi oleh token
-        $url = 'http://192.168.1.101:8181/admin/get-all-schedule';
+        $url = 'http://192.168.1.57:8181/admin/get-all-schedule';
 
         // Buat objek Guzzle HTTP Client
         $client = new Client();
@@ -108,7 +97,7 @@ class ScheduleController extends Controller
     public function getClient()
     {
         // Ganti URL dengan URL endpoint Spring Boot yang dilindungi oleh token
-        $url = 'http://192.168.1.101:8181/admin/search-client';
+        $url = 'http://192.168.1.57:8181/admin/search-client';
 
         // Buat objek Guzzle HTTP Client
         $client = new Client();
@@ -123,28 +112,13 @@ class ScheduleController extends Controller
                     'Accept' => 'application/json', // Sesuaikan dengan tipe konten yang diharapkan
                 ],
             ]);
-            $data = json_decode($response->getBody(), true);
-
+            $dataclient = json_decode($response->getBody(), true);
             // Pass the data to the view
-            return view('module/schedule/index', ['data' => $data]);
+            return response()->json($dataclient);
 
         } catch (\Exception $e) {
             // Tangani pengecualian jika terjadi kesalahan
             return view('error', ['errorMessage' => $e->getMessage()]);
-        }
-
-    }
-
-    public function fetchData()
-    {
-        $client = new Client();
-        
-        try {
-            $response = $client->get('http://192.168.1.101:8181/admin/search-worker');
-            $data = json_decode($response->getBody(), true);
-            return response()->json($data);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 }

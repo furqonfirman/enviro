@@ -15,12 +15,12 @@
               <!-- /.card-header -->
               <!-- form start -->
                 <div class="card-body">
-              @if(isset($errorMessage))
-                <div class="error-message">
-                  {{ $errorMessage }}
-                </div>
+                @if(isset($responseData))
+              <div class="alert alert-danger">{{ $responseData }}</div>
+              @elseif(isset($errorMessage))
+                  <div class="alert alert-danger">{{ $errorMessage }}</div>
               @endif
-              <form action="{{ route ('post_detail_client') }}" method="POST" class="form-horizontal">
+              <form action="{{ url ('insert-detail-client') }}" method="POST" class="form-horizontal">
               @csrf
                   <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Email</label>
