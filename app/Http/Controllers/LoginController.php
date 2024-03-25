@@ -58,52 +58,7 @@ class LoginController extends Controller
                 return view('/');
             }
     }
-
-    public function postlogin(Request $request)
-    {
-        // Retrieve credentials from the request
-        $credentials = $request->only('email', 'password');
-
-        // Create a Guzzle client
-        $client = new Client();
-
-        try {
-            // Send POST request to login endpoint
-            $response = $client->post('http://192.168.1.119:8181/auth/login', [
-                'json' => $credentials,
-            ]);
-            // Get the response body
-            $body = json_decode($response->getBody(), true);
-            //simpan dalam session
-            session(['access_token' => $accessToken]);
-            if ($statusCode == 200) {
-                return view('dashboard');
-                //return redirect()->route('dashboard');
-            }
-             elseif ($statusCode == 404) {
-                //return redirect()->back()->with('error', $responseData['error']);
-                return Redirect::back()->withErrors(['msg' => 'The Message']);
-            } else {
-                // Handle other status codes as needed
-                return redirect()->route('login')->with('error', 'An error occurred.');
-            }
-        } catch (RequestException $e) {
-            // Handle request exceptions (e.g., HTTP errors)
-            if ($e->hasResponse()) {
-                $statusCode = $e->getResponse()->getStatusCode();
-                $errorMessage = $e->getResponse()->getBody()->getContents();
-                $data = json_decode($errorMessage, true);
-                if ($statusCode == 403) {
-                    return redirect('/get_OTP')->with('error', $data['error']);
-                }
-                else {
-                    return redirect('/')->with('error', $data['error']);
-                }
-            } else {
-                return response()->json(['error' => 'An error occurred while processing your request.'], 500);
-            }
-        }
-    }
+    
     public function logout() 
     {
         Session::flush();
